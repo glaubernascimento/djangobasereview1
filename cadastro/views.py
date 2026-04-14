@@ -1,6 +1,6 @@
 # cadastro\views.py
 
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from cadastro.forms import PessoaForm
 from cadastro.models import Pessoa
@@ -37,3 +37,29 @@ def adicionar(request):
     else:
         form = PessoaForm()
     return render(request, 'cadastro/adicionar.html', {'form': form})
+
+
+
+def detalhe(request, id):
+    pessoa = get_object_or_404(Pessoa, id=id)
+    return render(request, 'cadastro/detalhe.html', {'pessoa': pessoa})
+
+
+def editar(request, id):
+    pessoa = get_object_or_404(Pessoa, id=id)
+    if request.method == 'POST':
+        form = PessoaForm(request.POST, instance=pessoa)
+        if form.is_valid():
+            form.save()
+            return redirect('detalhe', id=id)
+    else:
+        form = PessoaForm(instance=pessoa)
+    return render(request, 'cadastro/editar.html', {'form': form, 'pessoa': pessoa})
+
+
+def deletar(request, id):
+    pessoa = get_object_or_404(Pessoa, id=id)
+    if request.method == 'POST':
+        pessoa.delete()
+        return redirect('index')
+    return render(request, 'cadastro/deletar.html', {'pessoa': pessoa})

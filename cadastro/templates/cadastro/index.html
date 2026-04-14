@@ -9,8 +9,10 @@
     
     <ul>
     {% for pessoa in pessoas %}
-        <li>{{ pessoa.nome }} - {{ pessoa.email }}</li>
-
+        <li>
+            <a href="{% url 'detalhe' pessoa.id %}">{{ pessoa.nome }}</a>
+             - {{ pessoa.email }}
+        </li>
     {% empty %}
         <li>Ninguém está cadastrado.</li>
         
