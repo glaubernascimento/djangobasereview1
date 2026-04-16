@@ -1,15 +1,26 @@
+{# cadastro\templates\cadastro\detalhe.html #}
+
 {% extends 'cadastro/base.html' %}
 
 {% block titulo %}{{ pessoa.nome }}{% endblock %}
 
 {% block conteudo %}
-    <h2>{{ pessoa.nome }}</h2>
-    <p><strong>Email:</strong> {{ pessoa.email }}</p>
-    <p><strong>Idade:</strong> {{ pessoa.idade }} anos</p>
+<h2>{{ pessoa.nome }}</h2>
+<p><strong>Email:</strong> {{ pessoa.email }}</p>
+<p><strong>Idade:</strong> {{ pessoa.idade }} anos</p>
 
-    {% if user.is_authenticated %}
-        <a href="{% url 'editar' pessoa.id %}">Editar</a> |
-        <a href="{% url 'deletar' pessoa.id %}">Apagar</a> |
-    {% endif %}
-    <a href="{% url 'index' %}">Voltar</a>
+<h2>Telefones</h2>
+<ul>
+    {% for telefone in pessoa.telefones.all %}
+    <li>{{ telefone.numero }}</li>
+    {% empty %}
+    <li>Nenhum telefone cadastrado.</li>
+    {% endfor %}
+</ul>
+
+{% if user.is_authenticated %}
+<a href="{% url 'editar' pessoa.id %}">Editar</a> |
+<a href="{% url 'deletar' pessoa.id %}">Apagar</a> |
+{% endif %}
+<a href="{% url 'index' %}">Voltar</a>
 {% endblock %}

@@ -1,15 +1,24 @@
+{# cadastro\templates\cadastro\adicionar.html #}
+
 {% extends 'cadastro/base.html' %}
+
+{% load widget_tweaks %}
 
 {% block titulo %} - Cadastrar Pessoa{% endblock %}
 
 {% block conteudo %}
-    <h2>Cadastrar Pessoa</h2>
+<h2>Cadastrar Pessoa</h2>
 
-    <p>Preencha todos os campos.</p>
+<p>Preencha todos os campos.</p>
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Salvar</button>
-    </form>
+<form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+    <p class="mb-3">
+        {{ field.label_tag }}
+        {{ field }}
+    </p>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
 {% endblock %}

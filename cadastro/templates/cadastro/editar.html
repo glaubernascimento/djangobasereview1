@@ -1,4 +1,8 @@
+{# cadastro\templates\cadastro\editar.html #}
+
 {% extends 'cadastro/base.html' %}
+
+{% load widget_tweaks %}
 
 {% block titulo %}Editar {{ pessoa.nome }}{% endblock %}
 
@@ -7,7 +11,12 @@
 
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% for field in form %}
+        <p class="mb-3">
+            {{ field.label_tag }}
+            {{ field }}
+        </p>
+        {% endfor %}
         <button type="submit">Salvar</button>
         <a href="{% url 'detalhe' pessoa.id %}">Cancelar</a>
     </form>
