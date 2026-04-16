@@ -17,10 +17,10 @@
     <hr>
 
 <nav>
-    <a href="{% url 'index' %}">Início</a> |
-    <a href="{% url 'contato' %}">Contato</a> |
+    <a href="{% url 'index' %}">Início</a> |&nbsp;
+    <a href="{% url 'contato' %}">Contato</a> |&nbsp;
     {% if user.is_authenticated %}
-        <a href="{% url 'adicionar' %}">Adicionar</a> |
+        <a href="{% url 'adicionar' %}">Adicionar</a> |&nbsp;
         Olá, {{ user.username }}! |
         <form method="POST" action="{% url 'logout' %}" style="display: inline;">
             {% csrf_token %}

@@ -27,6 +27,8 @@ def index(request):
 def contato(request):
     return render(request, 'cadastro/contato.html')
 
+
+# Só pode ser acessado por um usuátio autenticado
 @login_required
 def adicionar(request):
     if request.method == 'POST':
@@ -44,6 +46,7 @@ def detalhe(request, id):
     pessoa = get_object_or_404(Pessoa, id=id)
     return render(request, 'cadastro/detalhe.html', {'pessoa': pessoa})
 
+# Só pode ser acessado por um usuátio autenticado
 @login_required
 def editar(request, id):
     pessoa = get_object_or_404(Pessoa, id=id)
@@ -56,6 +59,7 @@ def editar(request, id):
         form = PessoaForm(instance=pessoa)
     return render(request, 'cadastro/editar.html', {'form': form, 'pessoa': pessoa})
 
+# Só pode ser acessado por um usuátio autenticado
 @login_required
 def deletar(request, id):
     pessoa = get_object_or_404(Pessoa, id=id)
