@@ -1,24 +1,47 @@
-{# cadastro\templates\cadastro\adicionar.html #}
-
 {% extends 'cadastro/base.html' %}
-
-{% load widget_tweaks %}
+{% load static %}  
 
 {% block titulo %} - Cadastrar Pessoa{% endblock %}
 
 {% block conteudo %}
 <h2>Cadastrar Pessoa</h2>
 
-<p>Preencha todos os campos.</p>
-
 <form method="POST">
     {% csrf_token %}
+
+    <h5 class="mt-3">Dados pessoais</h5>
     {% for field in form %}
     <p class="mb-3">
         {{ field.label_tag }}
         {{ field }}
     </p>
     {% endfor %}
+
+    <h5 class="mt-4">Telefones</h5>
+    {{ formset.management_form }}
+
+    {% for tel_form in formset %}
+    <div class="d-flex align-items-center gap-2 mb-3">
+        {{ tel_form.numero.label_tag }}
+        {{ tel_form.numero }}
+        {% if tel_form.can_delete %}
+            <div class="form-check ms-2">
+                {{ tel_form.DELETE }}
+                <label class="form-check-label text-danger" for="{{ tel_form.DELETE.id_for_label }}">
+                    Remover
+                </label>
+            </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <button type="button" class="btn btn-outline-secondary btn-sm mb-4" id="add-telefone">
+        + Adicionar telefone
+    </button>
+
+    <br>
     <button type="submit" class="btn btn-primary">Salvar</button>
 </form>
+
+<script src="{% static 'cadastro/js/adicionar.js' %}"></script>  {# ← aqui #}
 {% endblock %}
