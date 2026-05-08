@@ -77,7 +77,7 @@
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
-        <h2 class="logo">🎧 MusicApp</h2>
+        <h2 class="logo">🎧 MusicHub</h2>
 
         <nav>
             <a href="{% url 'index' %}">🏠 Início</a>
@@ -89,16 +89,37 @@
         </nav>
 
         <div class="user-area">
+
             {% if user.is_authenticated %}
-                <p>👤 {{ user.username }}</p>
-                <form method="POST" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <button>Sair</button>
-                </form>
-            {% else %}
-                <a href="{% url 'login' %}">Entrar</a>
-            {% endif %}
-        </div>
+
+              <div class="profile-box">
+
+                  <div class="avatar">
+                      {{ user.username|first|upper }}
+                  </div>
+
+                  <div class="profile-info">
+                      <span>{{ user.username }}</span>
+                  </div>
+
+              </div>
+
+              <form method="POST" action="{% url 'logout' %}">
+                  {% csrf_token %}
+                  <button class="logout-btn">
+                      Sair
+                  </button>
+              </form>
+
+        {% else %}
+
+            <a class="login-btn" href="{% url 'login' %}">
+                Entrar
+            </a>
+
+        {% endif %}
+
+    </div>
     </aside>
 
     <!-- CONTEÚDO -->
@@ -119,6 +140,7 @@
     </main>
 
 </div>
+
 
 </body>
 </html>

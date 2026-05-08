@@ -10,7 +10,7 @@
 
     <form method="POST">
         {% csrf_token %}
-        <button type="submit">Confirmar</button>
+        <button type="submit" class="btn btn-primary">Confirmar</button>
         <a href="{% url 'detalhe' pessoa.id %}">Cancelar</a>
     </form>
 {% endblock %}
